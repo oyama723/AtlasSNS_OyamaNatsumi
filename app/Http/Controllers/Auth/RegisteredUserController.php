@@ -28,22 +28,22 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function register(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         //バリデーション
         $request->validate([
-            'userName' => 'required|min:2|max:12',
-            'mail' => 'required|string|email|unique:users,email|min:5|max:40',
+            'username' => 'required|min:2|max:12',
+            'email' => 'required|string|email|unique:users,email|min:5|max:40',
             'password' =>'required|string|min:8|max:20|confirmed',
         ]);
 
         $username = $request->input('username');
-        $mail = $request->input('mail');
+        $email = $request->input('email');
         $password = bcrypt($request->input('password'));
 
         User::create([
             'username' => $username,
-            'mail' => $mail,
+            'email' => $email,
             'password' => $password,
         ]);
 
