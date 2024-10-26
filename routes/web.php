@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
+// ログアウト中のページ
+Route::get('register', [RegisteredUserController::class, 'register']);
+Route::post('register', [RegisteredUserController::class, 'register']);
+
+Route::get('added', [RegisteredUserController::class, 'added']);
+Route::post('added', [RegisteredUserController::class, 'added']);
+
+
+
+// ログイン中のページ
 Route::get('top', [PostsController::class, 'index']);
 
 Route::get('profile', [ProfileController::class, 'profile']);
