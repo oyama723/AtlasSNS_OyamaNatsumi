@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 
 // ログアウト中のページ
+Route::get('login', [LoginController::class, 'login']);
+Route::post('login', [LoginController::class, 'login']);
+
 Route::get('register', [RegisteredUserController::class, 'register']);
 Route::post('register', [RegisteredUserController::class, 'register']);
 
