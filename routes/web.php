@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 use Illuminate\Support\Facades\Route;
@@ -23,24 +24,24 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-// ログアウト中のページ
-Route::get('login', [LoginController::class, 'login']);
-Route::post('login', [LoginController::class, 'login']);
-
-Route::get('register', [RegisteredUserController::class, 'register']);
-Route::post('register', [RegisteredUserController::class, 'register']);
-
-Route::get('added', [RegisteredUserController::class, 'added']);
-Route::post('added', [RegisteredUserController::class, 'added']);
 
 
+Route::middleware('auth')->group(function () {
 
-// ログイン中のページ
-Route::get('top', [PostsController::class, 'index']);
+  // ログイン中のページ
+  Route::get('top', [PostsController::class, 'index']);
 
-Route::get('profile', [ProfileController::class, 'profile']);
+  Route::get('profile', [ProfileController::class, 'profile']);
 
-Route::get('search', [UsersController::class, 'index']);
+  Route::get('search', [UsersController::class, 'index']);
 
-Route::get('follow-list', [PostsController::class, 'index']);
-Route::get('follower-list', [PostsController::class, 'index']);
+  Route::get('follow-list', [PostsController::class, 'index']);
+  Route::get('follower-list', [PostsController::class, 'index']);
+
+  Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+
+  Route::get('/followlist', [FollowsController::class, 'followList'])->name('followlist');
+  Route::get('/followerlist', [FollowsController::class, 'followerList'])->name('followerlist');
+
+});
